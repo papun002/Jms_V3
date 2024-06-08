@@ -1,0 +1,27 @@
+
+  .barcode {
+    width: 200px;
+  }
+  
+  /* Additional styles for printing */
+  @media print {
+    body {
+      margin: 0;
+      padding: 0;
+    }
+  
+    @page {
+      size: A4;
+      margin: 4cm;
+    }
+  
+    .barcode-container {
+      page-break-inside: avoid;
+      display: inline-block; /* Display barcodes in a row */
+      margin: 0;
+      padding: 10px;
+      width: 33%; /* Adjust the width based on the number of barcodes you want in a row */
+      background-color: white;
+    }
+  }
+  

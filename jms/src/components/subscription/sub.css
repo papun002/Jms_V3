@@ -1,0 +1,80 @@
+.pricing {
+    background-color: #fafbfe;
+    border-radius: 3px;
+    border: 1px solid #dae1f4;
+    position: relative;
+    margin-bottom: 30px;
+    text-align: center;
+}
+  
+.pricing .pricing-title {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    background-color: #ebeef0;
+    color: #563d7c;
+    border-radius: 0 0 3px 3px;
+    display: inline-block;
+    padding: 5px 15px;
+}
+
+.pricing .pricing-padding {
+    padding: 40px;
+    margin-bottom: 100px;
+}
+.pricing .pricing-price {
+    margin-bottom: 45px;
+}
+
+.pricing .pricing-details {
+    text-align: left;
+    display: inline-block;
+}
+.pricing .pricing-price div:first-child {
+    font-weight: 600;
+    font-size: 50px;
+    color: #7a1b10;
+}
+.pricing .pricing-details {
+    text-align: left;
+    display: inline-block;
+}
+.pricing .pricing-cta {
+    margin-top: 20px;
+}
+.pricing .pricing-cta a {
+    display: block;
+    padding: 20px 40px;
+    background-color: #ebeef0;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    border-radius: 0 0 3px 3px;
+    cursor: pointer;
+}
+.pricing .pricing-details .pricing-item .pricing-item-icon {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    background-color: #5CB85C;
+    color: #fff;
+    margin-right: 10px;
+}
+.pricing .pricing-details .pricing-item {
+    display: flex;
+    margin-bottom: 15px;
+}
+  
+  /* Media queries for responsive design */
+  @media (max-width: 768px) {
+    .pricing {
+      width: 100%; /* Make each card full width on smaller screens */
+      display: block; /* Change display to block for stacking */
+    }
+  }
+  

@@ -1,0 +1,110 @@
+/* toast.css */
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+.toast-container {
+  /* position: fixed; */
+  /* top: 59px; Adjust the distance from the top as needed */
+  /* left: 50%; */
+  /* transform: translateX(-50%); */
+  /* width: 100%; */
+  display: flex;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.alert {
+  display: flex; 
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+  z-index: 1000;
+  opacity: 0;
+  animation: slideIn 0.3s ease forwards;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.alert.hidden {
+  animation: slideOut 0.3s ease forwards;
+}
+
+.alert.visible {
+  opacity: 1;
+}
+
+.alert-content {
+  margin-left: 10px; /* Spacing between icon and content */
+}
+
+.alert-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.alert-icon {
+  font-size: 24px; /* Adjust icon size */
+}
+
+.alert-success {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.alert-danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.alert-info {
+  background-color: #17a2b8;
+  color: #fff;
+}
+
+.alert-warning {
+  background-color: #ffc107;
+  color: #212529;
+}
+
+/* Responsive styles */
+@media (max-width: 576px) {
+  /* Small screens (sm) and down */
+  .alert {
+    width: 100%; /* Adjust width for small screens */
+  }
+}
+
+@media (min-width: 577px) and (max-width: 991px) {
+  /* Medium screens (md) */
+  .alert {
+    width: 100%; /* Adjust width for medium screens */
+  }
+}
+
+@media (min-width: 992px) {
+  /* Large screens (lg) */
+  .alert {
+    width: 100%; /* Adjust width for large screens */
+  }
+}

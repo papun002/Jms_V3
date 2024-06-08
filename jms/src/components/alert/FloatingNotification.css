@@ -1,0 +1,47 @@
+/* FloatingNotification.css */
+
+.no-data {
+  background-color: #fff;
+  color: #707070;
+  width: 250px;
+  padding: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  z-index: 9999;
+}
+
+.arrow {
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 2em;
+}
+
+.content {
+  flex: 1;
+}
+
+.icon {
+  margin-right: 12px;
+  color: #CC3C15;
+}
+
+.float {
+  animation: float 1.5s infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}
