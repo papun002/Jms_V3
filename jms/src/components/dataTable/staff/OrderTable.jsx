@@ -17,11 +17,10 @@ function OrderTable() {
   ];
   const tablePass = {
     tablename: "Orders Details",
-    delLink: "http://localhost:4000/client/pdt/productdelete",
   };
   const fetchProduct = async () => {
     axios
-      .get("http://localhost:4000/client/order/getorders", {
+      .get("http://localhost:4000/staffs/order/getorders", {
         headers: {
           Authorization: `${localStorage.getItem("token")}`,
         },
@@ -35,7 +34,7 @@ function OrderTable() {
   useEffect(() => {
     fetchProduct();
   }, []);
-  return <DataTable data={order} columns={column} tablePass={tablePass} action={true} />;
+  return <DataTable data={order} columns={column} tablePass={tablePass} action={true}/>;
 }
 
 export default OrderTable;

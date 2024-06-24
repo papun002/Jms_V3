@@ -34,7 +34,7 @@ function ProductTable() {
   useEffect(() => {
     fetchProduct();
   }, []);
-  return <DataTable data={products} columns={header} tablePass={tablePass} />;
+  return <DataTable data={products} columns={header} tablePass={tablePass} action={true} />;
 }
 
 export default ProductTable;

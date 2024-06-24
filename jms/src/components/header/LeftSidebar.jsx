@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import RightSidebar from "./RightSidebar";
 
-const LeftSidebar = ({ srtIcon, head, sideItem }) => {
+const LeftSidebar = ({ srtIcon, head, sideItem, data }) => {
   const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(false);
   useEffect(() => {
     const handleToggle = () => {
@@ -52,7 +52,7 @@ const LeftSidebar = ({ srtIcon, head, sideItem }) => {
               <a href={undefined} className="nav-link user_btn">
                 <img
                   className="avatar"
-                  src="assets/images/user.png"
+                  src={data ? data.staffimg : ""}
                   alt=""
                   data-toggle="tooltip"
                   data-placement="right"

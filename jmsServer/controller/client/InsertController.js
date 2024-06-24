@@ -91,7 +91,7 @@ const insertProduct = async (req, res, next) => {
             pdescription: product.description,
             ptype: product.ptype,
             cid: cid,
-            sts: 'Available'
+            sts: 'In Stock'
         }));
 
         // Check if the barcode already exists

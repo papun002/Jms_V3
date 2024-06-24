@@ -23,7 +23,7 @@ function CategoryTable() {
       })
       .then((res) => {
         setcat(res.data.data);
-        console.log("Cat Data", res.data.data);
+        // console.log("Cat Data", res.data.data);
       })
       .catch((err) => console.error("Fetching Error", err));
   };

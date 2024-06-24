@@ -56,4 +56,43 @@ const FetchingCat = async (req, res) => {
 }
 //end of Category
 
-module.exports = { FetchingProductByBarcode, FetchingProduct, FetchingCat };
+const FetchingItemsByCategory = async (req, res) => {
+  const cid = req.cid;
+  const { category } = req.params;
+  console.log(cid, category)
+  try {
+    const productName = await ClientModels.ProductJms.findAll({ where: { cid: { [Op.eq]: parseInt(cid) }, cname: { [Op.eq]: category } } });
+    res.json({ status: 200, data: productName });
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+}
+//end of fetching items by category
+
+//fetching profile
+const FetchingProfileStaff = async (req, res) => {
+  const cid = req.cid;
+  try {
+    const staff = await ClientModels.StaffJms.findOne({ where: { cid: { [Op.eq]: parseInt(cid) } } });
+    res.json({ status: 200, data: staff });
+    return res;
+  } catch (err) {
+    console.log(err);
+  }}
+  //end of fetching profile
+
+  //fetching orders
+  const FetchingOrders = async (req, res) => {
+    const cid = req.cid; 
+    try {
+        const orders = await ClientModels.OrderJms.findAll({ where: { cid: { [Op.eq]: parseInt(cid) } } });
+        res.status(200).json({ status: 200, data: orders });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ status: 500, error: "Internal server error" });
+    }
+}
+//end of fetching orders
+
+  module.exports = { FetchingProductByBarcode, FetchingProduct, FetchingCat, FetchingItemsByCategory, FetchingProfileStaff, FetchingOrders};

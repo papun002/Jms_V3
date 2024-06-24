@@ -303,7 +303,7 @@ function AddProductCategory() {
           data={catData}
           onClose={closeModal}
           onUpdate={handleUpdate}
-          onDelete={handleDelete}
+          onDelete={handleCatDelete}
           modalTitle="Category Details"
           editableFields={editableFields}
         />

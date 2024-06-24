@@ -88,6 +88,7 @@ function AddProducts() {
   useEffect(() => {
     fetchingCategory();
   }, []);
+  
   const handleProductTypeChange = (e) => {
     const selectedType = e.target.value;
     setSelectedProductType(selectedType);

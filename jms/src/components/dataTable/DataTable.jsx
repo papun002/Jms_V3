@@ -4,7 +4,7 @@ import { useTable } from "react-table";
 import axios from "axios";
 import Toast from "../../components/alert/Toast";
 
-function DataTable({ data, columns, tablePass }) {
+function DataTable({ data, columns, tablePass, action }) {
   const [toastVisible, setToastVisible] = useState(false);
   const [response, setResponse] = useState(null);
   const [selectedItemIds, setSelectedItemIds] = useState([]);
@@ -115,7 +115,7 @@ function DataTable({ data, columns, tablePass }) {
   };
 
   useEffect(() => {
-    console.log("Selected item ID:", selectedItemIds);
+    // console.log("Selected item ID:", selectedItemIds);
   }, [selectedItemIds]);
 
   const toggleSelectItem = (e, id) => {
@@ -319,7 +319,7 @@ function DataTable({ data, columns, tablePass }) {
                     {columns.map((column, index) => (
                       <th key={index}>{column.Header}</th>
                     ))}
-                    <th>Action</th>
+                   {action == true ? <th>Action</th> : null}  
                   </tr>
                 </thead>
                 <tbody>
@@ -339,7 +339,7 @@ function DataTable({ data, columns, tablePass }) {
                             <td key={colIndex}>
                               {column.accessor === "sts" ? (
                                 i[column.accessor] === "Available" ? (
-                                  <span className="tag tag-info">Stock</span>
+                                  <span className="tag tag-info">{i[column.accessor]}</span>
                                 ) : (
                                   <span className="tag tag-red">
                                     {i[column.accessor]}
@@ -355,7 +355,7 @@ function DataTable({ data, columns, tablePass }) {
                               )}
                             </td>
                           ))}
-                          <td>
+                          {action == true ? <td>
                             <span>
                               <button
                                 data-toggle="modal"
@@ -365,7 +365,7 @@ function DataTable({ data, columns, tablePass }) {
                                 Details
                               </button>
                             </span>
-                          </td>
+                          </td> : null}
                         </tr>
                       );
                     })

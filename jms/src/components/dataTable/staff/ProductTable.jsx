@@ -28,7 +28,7 @@ function ProductTable() {
       })
       .then((res) => {
         setProducts(res.data.data);
-        console.log("Product Data", res.data.data);
+        // console.log("Product Data", res.data.data);
       })
       .catch((err) => console.error("Fetching Error", err));
   };
