@@ -1,0 +1,83 @@
+.tablex-responsive {
+    overflow-x: auto;
+}
+
+.tablex {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    background-color: transparent;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+}
+
+.tablex th {
+    font-size: 12px;
+    font-weight: 577;
+    text-align: left;
+    text-transform: capitalize;
+    color: black;
+}
+
+.tablex th, .tablex td {
+    padding: 4px 8px; 
+    border: 1px solid #ddd;
+    font-weight: 577;
+}
+
+.tablex td {
+    text-align: left; 
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.no-border {
+    border: none;
+}
+
+
+/* Column alignment */
+.col-barcodeNo, .col-itemName, .col-type, .col-purity {
+    text-align: left;
+}
+
+.col-pcs {
+    text-align: center; 
+}
+
+.col-itemNetWt, .col-rate, .col-itemValue, .col-mcRate, .col-mkChgs, .col-otChgs, .col-taxableValue, .col-grossValue {
+    text-align: right;
+}
+
+/* Column widths */
+.col-barcodeNo { width: 110px; }
+.col-itemName { width: 263px; }
+.col-type { width: 70px; }
+.col-purity { width: 80px; }
+.col-pcs { width: 40px; }
+.col-itemNetWt { width: 95px; }
+.col-rate { width: 80px; }
+.col-itemValue { width: 120px; }
+.col-mcRate { width: 100px; }
+.col-mkChgs { width: 80px;}
+.col-otChgs { width: 70px; }
+.col-taxableValue { width: 120px; }
+.col-grossValue { width: 120px; }
+
+input[type="text"] {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+
+
+/* Styles for total row */
+.total-row {
+    font-weight: bold;
+    background-color: #f5f5dc; 
+    text-align: right;
+}
+
+.total-value {
+    text-align: right; 
+}

@@ -152,7 +152,8 @@ function ClientProfile() {
                     </div>
                   </div>
                 </div>
-                <div className="card-body">
+                <div className="card-body ribbon">
+                <div class="ribbon-box green">New</div>
                   <div className="row">
                     <div className="col-lg-3 col-md-12 text-center">
                       <div className="square">

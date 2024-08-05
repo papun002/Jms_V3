@@ -58,7 +58,7 @@ function Stocks() {
             <div className="col-6">
               <div className="card">
                 <div className="card-header">
-                  <h4 className="card-title">Category Calculation</h4>
+                  <h4 className="card-title">Items Calculation</h4>
                 </div>
                 <div className="card-body">
                   <CategoryItemCalculation />

@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import SettingsComponent from "./setting/SettingsComponent";
+import SettingRates from "./setting/SettingRates";
 
 function RightSidebar({ handleToggleSidebar }) {
   const [selectedFont, setSelectedFont] = useState("font-montserrat");
@@ -83,9 +84,14 @@ function RightSidebar({ handleToggleSidebar }) {
           <h6 className="font-14 font-weight-bold mt-4 text-muted">
             General Settings
           </h6>
-          <SettingsComponent/>
+          <SettingsComponent />
         </div>
         <hr />
+        <div>
+          <h6 className="font-14 font-weight-bold mt-4 text-muted">Prices</h6>
+          <SettingRates />
+        </div>
+        <hr />  
       </div>
     </div>
   );

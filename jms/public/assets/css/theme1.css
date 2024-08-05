@@ -5,7 +5,29 @@
 
 a,
 .btn-link {
-    color: #00A9BD
+    color: #00A9BD;
+    cursor: pointer
+}
+
+.w-10 {
+    width: 10% !important
+}
+.input-w-80 {
+    width: 80% !important
+}
+.btn-yellow {
+    background-color: yellow;
+    color: #000000
+}
+.pd-green{
+    background-color: #00A9BD;
+    color: white;
+}
+.left-border{
+    border-left: 1px solid #ddd;
+}
+.right-border{
+    border-right: 1px solid #dddddd67;
 }
 
 .text-green,

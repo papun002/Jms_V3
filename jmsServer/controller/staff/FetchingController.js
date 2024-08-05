@@ -6,9 +6,10 @@ const sequelize = require('sequelize');
 const FetchingProductByBarcode = async (req, res) => {
   const cid = req.id;
   const { barcode } = req.params;
+  console.log(cid, barcode);
   try {
     const product = await sequelize.query( // Using sequelize.query
-      `SELECT * FROM view_products WHERE pbarcode = $1 AND staff_id = $2`,
+      `SELECT * FROM view_products WHERE pbarcode = $1 AND cid = $2`,
       {
         type: sequelize.QueryTypes.SELECT, // Specify query type
         bind: [barcode, parseInt(cid)],   // Bind parameters

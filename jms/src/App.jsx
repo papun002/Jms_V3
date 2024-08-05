@@ -24,6 +24,7 @@ import Client from "./layout/Client";
 import Customer from "./pages/staff/Customer";
 import Stocks from "./pages/staff/Stocks";
 import OrdersStaff from "./pages/staff/Orders";
+import StaffProfile from "./pages/staff/StaffProfile";
 function App() {
   const [verify, setVerify] = useState(null);
 
@@ -136,6 +137,14 @@ function App() {
                 element={
                   <AuthVerify usertype="staff">
                     <OrdersStaff />
+                  </AuthVerify>
+                }
+              />
+              <Route
+                path="/staff/profile"
+                element={
+                  <AuthVerify usertype="staff">
+                    <StaffProfile />
                   </AuthVerify>
                 }
               />

@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import Sidebar from '../../../header/LeftSidebar'
+import React, { useEffect, useState } from "react";
+import Sidebar from "../../../header/LeftSidebar";
 import axios from "axios";
 
 function StaffNavbar() {
@@ -25,7 +25,13 @@ function StaffNavbar() {
       icon: " fa fa-shopping-cart",
       path: "/staff/orders",
     },
-    { category: "History", title: "Reports", path: "/reports", icon: "fa fa-bar-chart" },
+    {
+      category: "Reports",
+      title: "Selling Report",
+      path: "/reports",
+      icon: "fa fa-bar-chart",
+    },
+    { title: "GST Report", path: "/staff/gstreport", icon: "fa fa-line-chart" },
   ];
 
   const srtIcon = [
@@ -55,7 +61,7 @@ function StaffNavbar() {
       text: "Report",
     },
     {
-      path: "/profile",
+      path: "/staff/profile",
       icon: "fa fa-user",
       text: "Profile",
     },
@@ -82,7 +88,12 @@ function StaffNavbar() {
 
   return (
     <div>
-      <Sidebar sideItem={StaffSidebarData} head={"Staff"} srtIcon={srtIcon} data={data} />
+      <Sidebar
+        sideItem={StaffSidebarData}
+        head={"Staff"}
+        srtIcon={srtIcon}
+        data={data}
+      />
     </div>
   );
 }

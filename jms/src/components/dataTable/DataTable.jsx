@@ -214,7 +214,7 @@ function DataTable({ data, columns, tablePass, action }) {
                   >
                     <i className="dropdown-icon fa fa-filter"></i> Filter By
                   </a>
-                  <ul className="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                  <ul className=" dropdown-menu-arrow">
                     <li>
                       <a
                         href={undefined}
@@ -237,7 +237,7 @@ function DataTable({ data, columns, tablePass, action }) {
                       <a
                         href={undefined}
                         className="dropdown-item"
-                        onClick={() => handleFilterChange("Unstock")}
+                        onClick={() => handleFilterChange("Out of stock")}
                       >
                         Unstock
                       </a>
@@ -322,7 +322,7 @@ function DataTable({ data, columns, tablePass, action }) {
                    {action == true ? <th>Action</th> : null}  
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="font-weight-normal">
                   {currentItems.length > 0 ? (
                     currentItems.map((i, rowIndex) => {
                       return (
@@ -338,7 +338,7 @@ function DataTable({ data, columns, tablePass, action }) {
                           {columns.map((column, colIndex) => (
                             <td key={colIndex}>
                               {column.accessor === "sts" ? (
-                                i[column.accessor] === "Available" ? (
+                                i[column.accessor] === "In Stock" ? (
                                   <span className="tag tag-info">{i[column.accessor]}</span>
                                 ) : (
                                   <span className="tag tag-red">
