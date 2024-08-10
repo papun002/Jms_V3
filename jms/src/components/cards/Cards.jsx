@@ -12,18 +12,20 @@ const Cards = ({ cardData }) => {
                   <h3 className="card-title">{item.title}</h3>
                 </div>
                 <div className={`card-body`}>
-                  <h5 className="number mb-0 font-25   counter">{item.value}</h5>
+                  <h5 className="number mb-0 font-25   counter">
+                    {item.value}
+                  </h5>
                   {/* <span className="font-12">Measure How Fast... <a href="#">More</a></span> */}
                 </div>
                 <div className="card-footer">
-                  <div className="d-flex justify-content-between">
+                  <div className="">
                     {item.cat.map((cat, index) => (
-                      <div key={index} className="d-flex align-items-center">
-                        <span className="text-dark">
-                          <small>
-                            {cat.title}: {cat.value}
+                      <div key={index} className="">
+                        <div className="text-dark ">
+                          <small className="font-15 mb-2">
+                            {cat.title}: {cat.value} [{cat.count}]
                           </small>
-                        </span>
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -37,10 +39,11 @@ const Cards = ({ cardData }) => {
                   <h3 className="card-title">{item.title}</h3>
                 </div>
                 <div className={`card-body`}>
-                  <h5 className="number mb-0 font-32 counter">{item.value}</h5>
-                  {item.anchor &&(
-                    
-                     <span className="font-12"><a href="#">{item.anchor}</a></span>
+                  <h5 className="number mb-0 font-25 counter">{item.value}</h5>
+                  {item.anchor && (
+                    <span className="font-12">
+                      <a href="#">{item.anchor}</a>
+                    </span>
                   )}
                 </div>
               </div>

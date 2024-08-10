@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { usePageTitle } from "../../components/functionalities/PageTitleProvider";
-import AdminCardEmbbed from "../../components/functionalities/ClientCardEmbbed";
 import HeaderIntroduction from "../../components/header/HeaderIntroduction";
 import Piechart3D from "../../components/graph/Piechart3D";
 import ReportCards from "../../components/functionalities/Staff Functionalities/cards/ReportCards";
@@ -33,8 +32,13 @@ const StaffHome = () => {
           </div>
           <div className="col-lg-4 col-md-6">
             <div className="row">
-              <div className="card" style={{background:"transparent", border:"none"}}>
-                <Piechart3D />
+              <div className="col-md-12">
+                <div
+                  className="card"
+                  style={{ background: "transparent", border: "none" }}
+                >
+                  <Piechart3D />
+                </div>
               </div>
             </div>
           </div>

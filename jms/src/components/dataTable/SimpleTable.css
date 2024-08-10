@@ -1,0 +1,61 @@
+.table-simple-container {
+    max-height: 350px; /* Adjust the height as needed */
+    overflow-y: auto;
+    position: relative;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+  }
+  
+  .table-simple {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table-simple th, .table-simple td {
+    padding: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .table-simple th {
+    position: sticky;
+    top: 0;
+    background: #5F9EA0; /* Ensure the header has a background */
+    z-index: 2;
+    text-align: left !important; /* Ensure headers are aligned to the left */
+    color: white;
+  }
+  .table-simple tfoot{
+    position: sticky;
+    bottom: 0;
+    z-index: 2;
+    background-color: #2E5090;
+    color: white;
+
+  }
+  
+  .table-simple-striped tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
+  
+  .table-simple-striped tbody tr:hover {
+    background-color: #c22615;
+    color: white;
+  }
+  
+  .table-simple-container::-webkit-scrollbar {
+    width: 8px; /* Adjust width for the scrollbar */
+  }
+  
+  .table-simple-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  .table-simple-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 6px; /* Make the scrollbar rounded */
+  }
+  
+  .table-simple-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+  

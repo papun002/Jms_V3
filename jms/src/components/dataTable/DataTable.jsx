@@ -322,7 +322,7 @@ function DataTable({ data, columns, tablePass, action }) {
                    {action == true ? <th>Action</th> : null}  
                   </tr>
                 </thead>
-                <tbody className="font-weight-normal">
+                <tbody className="font-weight-normal" style={{padding:"2px"}}>
                   {currentItems.length > 0 ? (
                     currentItems.map((i, rowIndex) => {
                       return (

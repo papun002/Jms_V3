@@ -62,7 +62,7 @@ function StaffProfile() {
   };
   // Toggle edit mode
   const handleEditToggle = () => {
-    console.log("Updated", formData);
+    // console.log("Updated", formData);
     if (!editable) {
       // Reset formData to current values from staffInfo when entering edit mode
       setFormData({ ...staffInfo[0] });

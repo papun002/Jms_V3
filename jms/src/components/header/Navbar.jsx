@@ -1,6 +1,7 @@
 import React from "react";
 import { usePageTitle } from "../functionalities/PageTitleProvider";
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function Navbar({ title, onLogout }) {
   const { pageTitle } = usePageTitle();
@@ -11,6 +12,24 @@ function Navbar({ title, onLogout }) {
     localStorage.removeItem("name");
     onLogout(true);
   };
+
+
+  useEffect(() => {
+    const handleToggle = () => {
+      document.body.classList.toggle("offcanvas-active");
+    };
+
+    const menuToggle = document.querySelector(".menu_toggle");
+    if (menuToggle) {
+      menuToggle.addEventListener("click", handleToggle);
+    }
+
+    return () => {
+      if (menuToggle) {
+        menuToggle.removeEventListener("click", handleToggle);
+      }
+    };
+  },[]);
 
   return (
     <div id="page_top" className="section-body top_dark">

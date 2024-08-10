@@ -324,6 +324,44 @@ const OrderJms = sequelize.define('OrderJms', {
 });
 //end of order table
 
+//setrates table 
+const setRates = sequelize.define('SetRates',{
+    _id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
+    date:{
+        type:DataTypes.DATE
+    },
+    gold916:{
+        type:DataTypes.STRING
+    },
+    silver92:{
+        type:DataTypes.STRING
+    },
+    silver:{
+        type:DataTypes.STRING
+    },
+    mc:{
+        type:DataTypes.STRING
+    },
+    hsn:{
+        type:DataTypes.STRING
+    },
+    diamond:{
+        type:DataTypes.STRING
+    },
+    barcode_length:{
+        type:DataTypes.STRING
+    },
+    cid:{
+        type:DataTypes.INTEGER
+    },
+},{
+    tableName: 'set_rates_jms',
+    timestamps: true
+})
 
 // Ensure the models sync with the database
 async function syncDatabase() {
@@ -338,4 +376,5 @@ async function syncDatabase() {
 // Sync the models
 syncDatabase();
 
-module.exports = { ClientJms, StaffJms, CategoryJms, Subscription, ProductJms, OrderJms};
+module.exports = { ClientJms, StaffJms, CategoryJms, Subscription, ProductJms, OrderJms , setRates
+};

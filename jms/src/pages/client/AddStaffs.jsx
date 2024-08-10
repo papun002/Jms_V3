@@ -3,7 +3,6 @@ import { usePageTitle } from "../../components/functionalities/PageTitleProvider
 import { useEffect, React, useState } from "react";
 import BigCards from "../../components/cards/BigCards";
 import InputFields from "../../components/inputFields/InputFields";
-import ClientInsertHandler from "../../components/functionalities/clientDatabaseServerHandler/ClientInsertHandler";
 import Swal from "sweetalert2";
 import axios from "axios";
 
@@ -35,43 +34,73 @@ function AddStaffs() {
     };
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("submiting....");
+    console.log("Submitting...");
+
+    // Create FormData object
     const formData = new FormData(staffInsert);
+    formData.set("img", imgDataUrl);
 
-    const checkData = [...formData.values()];
+    // Convert FormData to JSON object
+    const jsonStaffData = {};
+    formData.forEach((value, key) => {
+      jsonStaffData[key] = value;
+    });
 
-    if (checkData.filter((data) => data === "").length) {
+    // Update state with form data
+    setUserData(jsonStaffData);
+
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/client/staffs/insertstaff",
+        { staffdata: jsonStaffData },
+        {
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (response.status === 201) {
+        console.log(response.data);
+        Swal.fire({
+          icon: "success",
+          title: "Success",
+          text: "Staff Added Successfully!",
+          toast: true,
+          position: "top-right",
+          timer: 5000,
+          showConfirmButton: false,
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Username Already Exits !",
+          toast: true,
+          position: "top-right",
+          timer: 5000,
+          showConfirmButton: false,
+        });
+      }
+      fetchStaff();
+    } catch (error) {
+      console.error("Error during staff insertion:", error);
       Swal.fire({
-        title: "Please fill all the fields",
         icon: "error",
-        showClass: {
-          popup: `
-            animate__animated
-            animate__rotateInDownLeft
-            animate__faster
-          `,
-          hide: `animate__animated
-          animate__rotateOutDownRight
-          animate__faster
-          `,
-        },
+        title: "Error",
+        text: "Server Failed!",
+        toast: true,
+        position: "top-right",
+        timer: 5000,
+        showConfirmButton: false,
       });
-    } else {
-      formData.set("img", imgDataUrl);
-
-      //json format
-      const jsonStaffData = {};
-      formData.forEach((value, key) => {
-        jsonStaffData[key] = value;
-      });
-      setUserData(jsonStaffData);
     }
   };
 
   //Fetching Staff Profiles from Server
-  useEffect(() => {
+  const fetchStaff = () => {
     axios
       .get("http://localhost:4000/client/staffs/staffprofile", {
         headers: {
@@ -88,6 +117,9 @@ function AddStaffs() {
       .catch((error) => {
         console.error("Error in Fetching Staffs:", error);
       });
+  };
+  useEffect(() => {
+    fetchStaff();
   }, []);
 
   return (
@@ -204,12 +236,13 @@ function AddStaffs() {
               {staffProfiles.map((staffProfile, index) => {
                 return (
                   <BigCards
-                    Key={index}
+                    index={index}
                     id={staffProfile._id}
                     img={staffProfile.staffimg}
                     name={staffProfile.name}
                     email={staffProfile.email}
                     contact={staffProfile.contact}
+                    sts={staffProfile.sts}
                   />
                 );
               })}
@@ -217,9 +250,6 @@ function AddStaffs() {
           )}
         </div>
       </div>
-      {Object.keys(userData).length !== 0 ? (
-        <ClientInsertHandler cStaffInsert={userData} />
-      ) : null}
     </div>
   );
 }

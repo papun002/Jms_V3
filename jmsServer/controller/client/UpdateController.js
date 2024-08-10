@@ -1,13 +1,15 @@
 const ClientModels = require('../../models/client/ClientModels');
 
 const updateStaff = async (req, res, next) => {
+    const cid = req.id;
     try {
         const { id } = req.params; 
         const updatedStaffData = req.body;
+        console.log(id, updatedStaffData)
 
         // Find the staff member by id and update their data
         const [updatedRowCount, [updatedStaff]] = await ClientModels.StaffJms.update(updatedStaffData, {
-            where: { _id: id },
+            where: { _id: id,cid: cid },
             returning: true,
         });
 

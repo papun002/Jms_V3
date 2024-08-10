@@ -1,86 +1,131 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { usePageTitle } from "../../components/functionalities/PageTitleProvider";
-import { useLocation } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 
 function Profiles() {
-    const [editable, setEditable] = useState(false);
-    const [staffInfo, setStaffInfo] = useState([]);
-    const [formData, setFormData] = useState({});
-    const [loading, setLoading] = useState(true);
-    const { handlePageTitleChange } = usePageTitle();
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const id = searchParams.get("id");
-    //console.log("sid", id);
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await axios.get(
-            `http://localhost:4000/client/staffs/staffprofile/${id}`,{
-              headers: {
-                Authorization: `${localStorage.getItem("token")}`,
-              },
-            }
-          );
-          const data = response.data.data;
-          setLoading(false);
-          setStaffInfo(data);
-          setFormData({ ...data });
-        } catch (error) {
-          console.error("Error in Fetching Staffs:", error);
-        }
-      };
-  
-      fetchData();
-    }, []);
-  
-    useEffect(() => {
-      handlePageTitleChange("Staffs Profile");
-      return () => {
-        handlePageTitleChange("Empty");
-      };
-    }, [handlePageTitleChange]);
-  
-    // Update data
-    const handleUpdate = () => {
-      axios
-        .put(`/client/staffs/updatestaff/${formData._id}`, formData)
-        .then((response) => {
-          if (response.status === 200) {
-            setEditable(false);
-            // Update originalData if needed
-            setOriginalData(formData);
-          } else {
-            console.error("Error updating staff data");
+  const [editable, setEditable] = useState(false);
+  const [staffInfo, setStaffInfo] = useState([]);
+  const [formData, setFormData] = useState({});
+  const [loading, setLoading] = useState(true);
+  const { handlePageTitleChange } = usePageTitle();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const id = searchParams.get("id");
+  //console.log("sid", id);
+  const navi = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:4000/client/staffs/staffprofile/${id}`,
+          {
+            headers: {
+              Authorization: `${localStorage.getItem("token")}`,
+            },
           }
-        })
-        .catch((error) => {
-          console.error("Error updating staff data:", error);
-        });
+        );
+        const data = response.data.data;
+        setLoading(false);
+        setStaffInfo(data);
+        setFormData({ ...data });
+      } catch (error) {
+        console.error("Error in Fetching Staffs:", error);
+      }
     };
-    // Toggle edit mode
-    const handleEditToggle = () => {
-        if (!editable) {
-          // Reset formData to current values from staffInfo when entering edit mode
-          setFormData({ ...staffInfo });
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    handlePageTitleChange("Staffs Profile");
+    return () => {
+      handlePageTitleChange("Empty");
+    };
+  }, [handlePageTitleChange]);
+
+  // Update data
+  const handleUpdate = () => {
+    console.log(formData)
+    axios
+      .put(`/client/staffs/updatestaff/${formData._id}`,{
+        formData: formData
+      },{
+        headers: {
+          Authorization: `${localStorage.getItem("token")}`,
         }
-        setEditable(!editable);
-    };
-  
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({
-          ...formData,
-          [name]: value
-        });
-      };
-  
-    // Delete data
-    const handleDelete = () => {
-        // Logic to handle deleting the staff info
-      };
+        })
+      .then((response) => {
+        if (response.status === 200) {
+          setEditable(false);
+          // Update originalData if needed
+          setOriginalData(formData);
+        } else {
+          console.error("Error updating staff data");
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating staff data:", error);
+      });
+  };
+  // Toggle edit mode
+  const handleEditToggle = () => {
+    console.log("Updated", formData);
+    if (!editable) {
+      // Reset formData to current values from staffInfo when entering edit mode
+      setFormData({ ...staffInfo[0] });
+    }
+    setEditable(!editable);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  // Delete data
+  const handleDelete = async () => {
+    // Logic to handle deleting the staff info
+    // console.log(staffInfo[0])
+    try {
+      const { staffusername, name, email, _id, govtproof } = staffInfo[0];
+      console.log(staffusername, name, email, _id, govtproof)
+
+      await axios.delete("http://localhost:4000/client/staffs/deletestaff", {
+        data: {
+          staffusername,
+          name,
+          email,
+          _id,
+          govtproof,
+        },
+        headers: {
+          Authorization: `${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) =>{
+        if(res.status=== 200){
+          navi("/staffs")
+        }else{
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Failed to Delete !",
+            toast: true,
+            position: "top-right",
+            timer: 5000,
+            showConfirmButton: false,
+          });
+        }
+      })
+
+
+    } catch (err) {}
+  };
   return (
     <>
       {loading ? (
@@ -96,7 +141,9 @@ function Profiles() {
             <div className="col-lg-12 col-md-12" key={index}>
               <div className="card">
                 <div className="card-header">
-                <h3 className="card-title"><span className="text-red">{staff.name}</span> Profile</h3>
+                  <h3 className="card-title">
+                    <span className="text-red">{staff.name}</span> Profile
+                  </h3>
                   <div className="card-options">
                     <div className="item-action dropdown ml-2">
                       <a href={undefined} data-toggle="dropdown">
@@ -145,34 +192,30 @@ function Profiles() {
                     </div>
                   </div>
                 </div>
-                <div className="card-body">
+                <div className="card-body ribbon">
                   <div className="row">
+                    <div
+                      className="ribbon-box green"
+                      style={{ zIndex: "9999" }}
+                    >
+                      {" "}
+                      {staff.sts === "active" ? (
+                        <span className="">Active</span>
+                      ) : (
+                        <span className="d">Deactivate</span>
+                      )}
+                    </div>
                     <div className="col-lg-3 col-md-4 text-center">
                       <div className="square">
                         <img
                           className="rounded-square"
-                          src={staff.staffimg}
+                          src={
+                            staff.staffimg
+                              ? staff.staffimg
+                              : `/assets/images/noImg.jpg`
+                          }
                           alt=""
                         />
-                      </div>
-                      <div className="sts dflex">
-                        {staff.sts === "active" ? (
-                          <span className="">
-                            Status:{" "}
-                            <i
-                              className="fa fa-circle"
-                              style={{ color: "#008000" }}
-                            ></i>
-                          </span>
-                        ) : (
-                          <span className="d">
-                            Status :{" "}
-                            <i
-                              className="fa fa-circle"
-                              style={{ color: "#FF0000" }}
-                            ></i>
-                          </span>
-                        )}
                       </div>
                     </div>
                     <div className="col-lg-5 col-md-4">
@@ -292,7 +335,7 @@ function Profiles() {
                               type="text"
                               name="staffid"
                               className="form-control"
-                              value={formData.staffid}
+                              value={formData.staffusername}
                               onChange={handleChange}
                             />
                           ) : (
@@ -306,7 +349,7 @@ function Profiles() {
                               type="text"
                               name="staffpwd"
                               className="form-control"
-                              value={editable ? formData[0].staffpwd : ''}
+                              value={editable ? formData.staffpwd : ""}
                               onChange={handleChange}
                             />
                           ) : (

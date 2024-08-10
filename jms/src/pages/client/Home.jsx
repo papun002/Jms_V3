@@ -1,12 +1,13 @@
 import { React, useEffect } from "react";
 import { usePageTitle } from "../../components/functionalities/PageTitleProvider";
-import AdminCardEmbbed from "../../components/functionalities/ClientCardEmbbed";
 import HeaderIntroduction from "../../components/header/HeaderIntroduction";
 
 import verification from "../../context/Context";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../../utils/Authrize";
 import Analytics from "../../components/graph/Analytics";
+import SalesCard from "../../components/functionalities/client function/SalesCard";
+import SetRatesCard from "../../components/functionalities/client function/SetRatesCard";
 function Home() {
   const { handlePageTitleChange } = usePageTitle();
 
@@ -24,10 +25,24 @@ function Home() {
     <div className="mt-3">
       <>
         <HeaderIntroduction introText={introText} />
-        <AdminCardEmbbed />{" "}
-        <div className=" row clearfix row-deck">
-          <Analytics />
+        <div className="row">
+          <div className="col-lg-6">
+            <div className="row">
+              <div className="col-lg-12">
+                <SalesCard />
+              </div>
+            </div>
+            <div className="row">
+              <p>Set Rates</p>
+
+              <SetRatesCard />
+            </div>
+          </div>
+          <div className="col-lg-6">
+            <Analytics />
+          </div>
         </div>
+        <div className=" row clearfix row-deck"></div>
       </>
     </div>
   );

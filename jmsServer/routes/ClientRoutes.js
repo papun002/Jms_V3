@@ -6,6 +6,7 @@ const FetchingController = require("../controller/client/FetchingController");
 const UpdateController = require("../controller/client/UpdateController");
 const DeteleController = require("../controller/client/DeleteController");
 const extractUserIdFromToken = require("../middleware/auth_verify");
+const { GenerateBarcode } = require("../controller/client/Barcode");
 
 const ClientRoute = Express.Router();
 // Insert or post routes
@@ -24,20 +25,24 @@ ClientRoute.get("/substs",clientLogin.SubStatus);
 ClientRoute.get("/staffs/staffprofile",extractUserIdFromToken,FetchingController.FetchingStaffProfile);
 ClientRoute.get("/staffs/staffprofile/:id",extractUserIdFromToken,FetchingController.FetchingStaffInfo);
 ClientRoute.get("/cat/getcategory",extractUserIdFromToken,FetchingController.FetchingCategory);
+ClientRoute.get("/cat/retrivecategory",extractUserIdFromToken,FetchingController.RetriveCategory);
 ClientRoute.get("/pdt/getAllProducts",extractUserIdFromToken,FetchingController.FetchingProduct);
 ClientRoute.get("/clientprofile",extractUserIdFromToken,FetchingController.FetchingClientProfile);
 ClientRoute.get("/order/getorders",extractUserIdFromToken,FetchingController.FetchingOrders);
+ClientRoute.get("/barcode/generate",extractUserIdFromToken,GenerateBarcode);
 
 
 
 // update routes (put)
-ClientRoute.put("/staffs/updatestaff/:id", UpdateController.updateStaff);
+ClientRoute.put("/staffs/updatestaff/:id",extractUserIdFromToken ,UpdateController.updateStaff);
 
 
 
 //Delete Routes
 ClientRoute.delete("/category/deletecategory/:id",extractUserIdFromToken,DeteleController.deleteCategory);
+ClientRoute.delete("/cat/bulkdeletecategory",extractUserIdFromToken,DeteleController.bulkDeleteCategories);
 ClientRoute.delete("/pdt/productdelete",extractUserIdFromToken,DeteleController.deleteProduct);
+ClientRoute.delete("/staffs/deletestaff",extractUserIdFromToken,DeteleController.staffDelete);
 
 
 

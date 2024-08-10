@@ -45,17 +45,37 @@ const FetchingStaffInfo = async (req, res) => {
     }
 }
 
-//fetching category
+//fetching category for table by category type
 const FetchingCategory = async (req, res) => {
+    const { category } = req.query; 
     const cid = req.id; 
+    console.log(category)
+    if (!category) {
+        return res.status(400).json({ error: 'Category parameter is required' });
+      }
     try {
-        const categories = await ClientModels.CategoryJms.findAll({ where: { cid: { [Op.eq]: parseInt(cid) } } });
+        const categories = await ClientModels.CategoryJms.findAll({ where: {pdt_type: category ,cid: { [Op.eq]: parseInt(cid) } } });
         res.status(200).json({ status: 200, data: categories });
     } catch (err) {
         console.error(err);
         res.status(500).json({ status: 500, error: "Internal server error" });
     }
 }
+//end of fetching categories
+
+//Fetching categoris for product insertion
+const RetriveCategory = async (req, res) =>{
+    const cid = req.id; 
+    try {
+        const categories = await ClientModels.CategoryJms.findAll({ where: {cid: { [Op.eq]: parseInt(cid) } } });
+        res.status(200).json({ status: 200, data: categories });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ status: 500, error: "Internal server error" });
+    }
+
+}
+
 
 
 //fetching product
@@ -83,4 +103,4 @@ const FetchingOrders = async (req, res) => {
     }
 }
 
-module.exports = { FetchingStaffProfile, FetchingStaffInfo ,FetchingCategory, FetchingProduct , FetchingClientProfile, FetchingOrders}
+module.exports = { FetchingStaffProfile, FetchingStaffInfo ,FetchingCategory, FetchingProduct , FetchingClientProfile, FetchingOrders, RetriveCategory}

@@ -2,12 +2,13 @@ const ClientModels = require("../../models/client/ClientModels");
 
 // Inserting staff
 const staffInsert = async (req, res, next) => {
-    const data = req.body.cStaffInsert;
-    const cid = req.id; 
+    const data = req.body.staffdata;
+    const cid = req.id;
+    console.log(data, cid)
 
     try {
         // Check if the staff ID already exists
-        const existingStaff = await ClientModels.StaffJms.findOne({ where: { staffusername: data.staffusername } });
+        const existingStaff = await ClientModels.StaffJms.findOne({ where: { staffusername: data.staffusername, cid: cid } });
 
         if (existingStaff) {
             return res.send({ status: "400", data: "Staff Username already exists!" });
@@ -46,12 +47,13 @@ const insertCategory = async (req, res, next) => {
     const data = req.body;
     const cid = req.id; // Assuming req.id contains the client id
 
+    // console.log(data)
     try {
         // Check if the category already exists
-        const existingCategory = await ClientModels.CategoryJms.findOne({ where: { cat_name: data.category } });
+        const existingCategory = await ClientModels.CategoryJms.findOne({ where: { cat_name: data.category, pdt_type: data.pdttype, cid: cid } });
 
         if (existingCategory) {
-            return res.status(400).json({ status: "400", data: "Category already exists!" });
+            return res.json({ status: "400", data: "Category already exists!" });
         }
 
         // Insert the new category
@@ -111,7 +113,7 @@ const insertProduct = async (req, res, next) => {
             res.status(201).json({ status: "201", data: "Items Added Successfully!" });
         } else {
             console.log("No new products to insert");
-            res.json({ status: "400", data: "Already Present Barcode: " + existingBarcodes ,msg: "No new items to insert" });
+            res.json({ status: "400", data: "Already Present Barcode: " + existingBarcodes, msg: "No new items to insert" });
         }
     } catch (error) {
         console.error("Error inserting products:", error);

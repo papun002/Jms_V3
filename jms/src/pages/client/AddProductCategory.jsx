@@ -5,6 +5,7 @@ import InputFields from "../../components/inputFields/InputFields";
 import axios from "axios";
 import Toast from "../../components/alert/Toast";
 import ModalComponent from "../../components/modal/ModalComponent";
+import CategoryTable from "../../components/dataTable/client/CategoryTable.jsx";
 
 function AddProductCategory() {
   const [modalCat, setModalCat] = useState(null);
@@ -29,7 +30,7 @@ function AddProductCategory() {
     const cate = e.target.pdtcat.value;
     const pdtype = e.target.pdttype.value;
 
-    // console.log(data);
+    // console.log(cate, pdtype)
     axios
       .post(
         "http://localhost:4000/client/cat/categoryinsert",
@@ -73,29 +74,6 @@ function AddProductCategory() {
       });
   };
 
-  //getting category
-  const fetchingCategory = async () => {
-    await axios
-      .get("http://localhost:4000/client/cat/getcategory", {
-        headers: {
-          Authorization: `${token}`,
-        },
-      })
-      .then((res) => {
-        // console.log(res.data.data);
-
-        setCatData(res.data.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  useEffect(() => {
-    fetchingCategory();
-  }, []);
-
   //deleting category
   const handleCatDelete = async (id) => {
     // console.log(id);
@@ -133,21 +111,55 @@ function AddProductCategory() {
   };
   // toastVisible end
 
+  const [error, setError] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("22K916");
+
+
+  const fetchingCategory = async (category) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get(
+        "http://localhost:4000/client/cat/getcategory",
+        {
+          params: { category }, // Pass parameters using `params`
+          headers: {
+            Authorization: `${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      setCatData(response.data.data);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to fetch category data.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchingCategory(selectedCategory);
+  }, [selectedCategory]);
+
+  // const handleCategoryChange = (event) => {
+  //   setSelectedCategory(event.target.value);
+  // };
+
   return (
     <div className="mt-3">
       <div className="row">
         <div className="col-sm-12 col-md-12 col-lg-12">
+          <div className="card">
           {toastVisible && (
             <Toast
               message={response.message}
               type={response.type}
-              duration={1000}
+              duration={1500}
               onClose={handleCloseToast}
             />
           )}
-          <div className="card">
             <div className="card-header">
-              <h3 className="card-title">Add Product Category</h3>
+              <h3 className="card-title">Add Category</h3>
               <div className="card-options ">
                 <a
                   href="#"
@@ -164,13 +176,20 @@ function AddProductCategory() {
                   <div className="col-md-6 col-lg-6">
                     <div className="form-group">
                       <label>
-                        Item Type <span className="text-danger">*</span>
+                        Category Type <span className="text-danger">*</span>
                       </label>
-                      <select name="pdttype" id="" className="form-control">
-                        <option value="gold">Gold</option>
+                      <select
+                        name="pdttype"
+                        id=""
+                        className="form-control"
+                        required
+                      >
+                        <option value="">Select Product Type</option>
+                        <option value="22K916">Gold 22K916</option>
+                        <option value="gold 22K">Gold 22K</option>
+                        <option value="silver 92">Silver 92</option>
                         <option value="silver">Silver</option>
                         <option value="diamond">Diamond</option>
-                        <option value="others">Others</option>
                       </select>
                     </div>
                   </div>
@@ -183,6 +202,7 @@ function AddProductCategory() {
                         type="text"
                         className="form-control"
                         name="pdtcat"
+                        required
                       />
                     </div>
                   </div>
@@ -211,7 +231,14 @@ function AddProductCategory() {
           <div className="col-sm-12">
             <div className="tab-pane" id="Notifications">
               <div className="card-deck">
-                {catData.map((cat, index) => (
+                <div className="card">
+                  <div className="col-lg-12">
+                 
+                    <CategoryTable />
+                  </div>
+                </div>
+
+                {/* {catData.map((cat, index) => (
                   <div className="col-sm-4" key={index}>
                     <div className="card">
                       <div className="card-header">
@@ -263,8 +290,8 @@ function AddProductCategory() {
                                         <i className="dropdown-icon fa fa-times"></i>{" "}
                                         Delete
                                       </a>
-                                    </div>
-                                    {/* <button
+                                    </div> */}
+                {/* <button
                             className="btn btn-red mr-2"
                             data-toggle="tooltip modal"
                             data-placement="top"
@@ -283,7 +310,7 @@ function AddProductCategory() {
                           >
                             <i className="fa fa-trash"></i>
                           </button> */}
-                                  </div>
+                {/* </div>
                                 </div>
                               </li>
                             ))}
@@ -291,7 +318,7 @@ function AddProductCategory() {
                       </div>
                     </div>
                   </div>
-                ))}
+                ))} */}
               </div>
             </div>
           </div>
